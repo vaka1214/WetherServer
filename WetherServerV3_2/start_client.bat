@@ -1,0 +1,1 @@
+cd client/target & java -jar client-0.1-jar-with-dependencies.jar & CLS

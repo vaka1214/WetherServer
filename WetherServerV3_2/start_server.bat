@@ -1,0 +1,1 @@
+cd server/target & java -jar server-0.1-jar-with-dependencies.jar & pause
