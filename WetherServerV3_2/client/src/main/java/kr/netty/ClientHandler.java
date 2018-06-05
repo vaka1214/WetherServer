@@ -17,42 +17,45 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.*;
 
-public class IntegrationClientHandler extends ChannelInboundHandlerAdapter
+public class ClientHandler extends ChannelInboundHandlerAdapter
 {
-	static String s;
-	int i;
+	static String s = "";
     @Override
     public void channelActive(final ChannelHandlerContext ctx)
-	{
-		i=0;
-		Scanner scan = new Scanner(System.in);
-		System.out.print("Enter name of the city:\nOr enter exit to close program:\n");
-		s = scan.nextLine();
-		if(s.equals("exit")){
-
-			System.out.println("Shutdown.....");
-			i++;
-		}
-		final ByteBuf out = Unpooled.wrappedBuffer(s.getBytes());
+	{	String s1;
+		s1 = enterStr();
+		final ByteBuf out = Unpooled.wrappedBuffer(s1.getBytes());
 		ctx.writeAndFlush(out);
 	}
+
+	public String enterStr() {
+		if (!s.equals("test")) {
+			Scanner scan = new Scanner(System.in);
+			System.out.print("Enter name of the city\n");
+			s = scan.nextLine();
+			if (s.equals("exit")) {
+				System.out.println("Shutdown.....");
+			}
+		} else {
+			s = "Moscow";
+		}
+		return s;
+    }
 	
 	@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)
 	{
 		ByteBuf in = (ByteBuf) msg;
 		String str;
-		try
-		{
-			if (i==0) {
-				str = in.toString(Charset.forName("utf-8"));
-				System.out.println("Info about temperature: " + str);
-			}
+		if(!s.equals("exit")) {
+			str = in.toString(Charset.forName("utf-8"));
+			System.out.println("Info about temperature: " + str);
+
+		} else {
+			System.out.println("..........");
 		}
-		finally
-		{
+
 			ReferenceCountUtil.release(msg);
-		}
 	}
 	
     @Override
