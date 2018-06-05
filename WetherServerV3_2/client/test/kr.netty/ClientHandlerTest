@@ -1,0 +1,17 @@
+package kr.netty;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class ClientHandlerTest {
+
+    @Test
+    public void enterStr(){
+        ClientHandler.s = "test";
+        ClientHandler ch = new ClientHandler();
+        String s1 = ch.enterStr();
+        assertEquals("Moscow", s1);
+        ClientHandler.s = "";
+    }
+
+
+}
