@@ -10,7 +10,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-public class IntegrationClient
+public class Client
 {
     public static void main(String[] args) throws Exception
 	{
@@ -31,14 +31,14 @@ public class IntegrationClient
                 public void initChannel(SocketChannel ch) throws Exception
 				{
 
-                    ch.pipeline().addLast(new IntegrationClientHandler());
+                    ch.pipeline().addLast(new ClientHandler());
 
                 }
             });
             do {
                 ChannelFuture f = b.connect(host, port).sync();
                 f.channel().closeFuture().sync();
-            } while (!IntegrationClientHandler.s.equals("exit"));
+            } while (!ClientHandler.s.equals("exit"));
             }
 		finally
 		{
