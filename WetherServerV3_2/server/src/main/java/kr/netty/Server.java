@@ -14,7 +14,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.ArrayDeque;
 
-public class IntegrationServer
+public class Server
 {
     private int port;
 	
@@ -35,7 +35,6 @@ public class IntegrationServer
 		
 		for (int i=0; i<threadNumber;++i)
 			threadExecutorArr[i].start();
-		
         threadLogger.start();
 		
         int port;
@@ -47,10 +46,10 @@ public class IntegrationServer
 		{
             port = 5415;
         }
-        new IntegrationServer(port).run();
+        new Server(port).run();
     }
 	
-    public IntegrationServer(int port)
+    public Server(int port)
 	{
         this.port = port;
     }
@@ -69,7 +68,7 @@ public class IntegrationServer
                  @Override
                  public void initChannel(SocketChannel ch) throws Exception
 				 {
-                     ch.pipeline().addLast(new IntegrationServerHandler(qIn));
+                     ch.pipeline().addLast(new ServerHandler(qIn));
                  }
              })
              .option(ChannelOption.SO_BACKLOG, 128)
@@ -85,4 +84,3 @@ public class IntegrationServer
             bossGroup.shutdownGracefully();
         }
     }
-}
