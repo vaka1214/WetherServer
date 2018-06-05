@@ -22,7 +22,7 @@ public enum DataBase {
 
         PreparedStatement ps = conn.prepareStatement("DELETE FROM weatherF");
         ps.execute();
-        ps = conn.prepareStatement("INSERT INTO weatherF VALUES ('Moscow', '+25'), ('Piter','-10'), ('Tom', '+15'), ('Tokyo', '+20'), ('Minsk','+19')");
+        ps = conn.prepareStatement("INSERT INTO weatherF VALUES ('Moscow', '+10'), ('Aljir','+50'), ('Minsk', '+15'), ('Tokyo', '+20'), ('Kair','+40'), ('Saratov','+16'), ('Hell','+3000')");
         ps.execute();
         ps = conn.prepareStatement("SELECT * from weatherF");
 
